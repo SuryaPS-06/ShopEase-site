@@ -26,24 +26,24 @@
 <header>
   <h1>🛍 ShopEase</h1>
   <div>
-    <button id="loginBtn" onclick="openLogin()">Login</button>
-    <button id="logoutBtn" onclick="logout()" style="display:none;">Logout</button>
-    <a href="cart.html">🛒 Cart</a>
+    <button id="loginBtn" data-cta-name="login_button" data-cta-location="header" onclick="openLogin()">Login</button>
+    <button id="logoutBtn" data-cta-name="logout_button" data-cta-location="header" onclick="logout()" style="display:none;">Logout</button>
+    <a href="cart.html" data-cta-name="cart_header" data-cta-location="header">🛒 Cart</a>
   </div>
 </header>
 
 <header>
   <nav>
-    <a href="index.html">Home</a>
-    <a href="plp.html">Products</a>
-    <a href="cart.html">Cart</a>
+    <a href="index.html" data-cta-name="nav_home" data-cta-location="navigation">Home</a>
+    <a href="plp.html" data-cta-name="nav_products" data-cta-location="navigation">Products</a>
+    <a href="cart.html" data-cta-name="nav_cart" data-cta-location="navigation">Cart</a>
   </nav>
 </header>
 
 
 <section class="hero">
   <h2>Welcome to ShopEase</h2>
-  <a href="plp.html" class="btn">Shop Now</a>
+  <a href="plp.html" class="btn" data-cta-name="shop_now" data-cta-location="hero_section">>Shop Now</a>
 </section>
 
 <!-- LOGIN MODAL -->
@@ -63,4 +63,5 @@
 <script src="js/login.js"></script>
 </body>
 </html>
+
 
