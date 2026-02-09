@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Cart</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<header>
+  <h2>🛍 ShopEase</h2>
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="plp.html">Products</a>
+  </nav>
+</header>
+
+
+<script>
+  if (!localStorage.getItem("loggedIn")) {
+    alert("Please login first");
+    location.href = "index.html";
+  }
+</script>
+
+<h1>Your Cart</h1>
+<div id="cartItems"></div>
+
+<select id="coupon">
+  <option value="0">No Coupon</option>
+  <option value="10">10% OFF</option>
+  <option value="20">20% OFF</option>
+  <option value="30">30% OFF</option>
+  <option value="40">40% OFF</option>
+  <option value="50">50% OFF</option>
+</select>
+
+<button onclick="applyCoupon()">Apply Coupon</button>
+
+<h2>Total: ₹<span id="total"></span></h2>
+
+<button onclick="openPayment()">Pay Now</button>
+
+<div id="paymentModal" class="modal">
+  <div class="modal-content">
+    <span class="close" onclick="closePayment()">&times;</span>
+    <h3>Select Payment Method</h3>
+
+    <button onclick="completePayment('UPI')">UPI</button>
+    <button onclick="completePayment('Card')">Card</button>
+    <button onclick="completePayment('NetBanking')">Net Banking</button>
+    <button onclick="completePayment('Cash')">Cash</button>
+  </div>
+</div>
+
+<button onclick="orderFail()">Order Failure</button>
+
+<script src="js/cart.js"></script>
+</body>
+</html>

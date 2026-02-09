@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>ShopEase</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body onload="checkLogin()">
+
+<header>
+  <h1>🛍 ShopEase</h1>
+  <div>
+    <button id="loginBtn" onclick="openLogin()">Login</button>
+    <button id="logoutBtn" onclick="logout()" style="display:none;">Logout</button>
+    <a href="cart.html">🛒 Cart</a>
+  </div>
+</header>
+
+<header>
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="plp.html">Products</a>
+    <a href="cart.html">Cart</a>
+  </nav>
+</header>
+
+
+<section class="hero">
+  <h2>Welcome to ShopEase</h2>
+  <a href="plp.html" class="btn">Shop Now</a>
+</section>
+
+<!-- LOGIN MODAL -->
+<div id="loginModal" class="modal">
+  <div class="modal-content">
+    <span onclick="closeLogin()" class="close">&times;</span>
+    <h2>Login</h2>
+
+    <input type="text" id="user" placeholder="Gmail or Mobile">
+    <input type="password" id="password" placeholder="6 Character Password">
+    <button onclick="login()">Login</button>
+
+    <p id="error"></p>
+  </div>
+</div>
+
+<script src="js/login.js"></script>
+</body>
+</html>

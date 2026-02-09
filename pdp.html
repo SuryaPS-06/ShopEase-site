@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>PDP</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+
+<header>
+  <h2>🛍 ShopEase</h2>
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="plp.html">Products</a>
+    <a href="cart.html">Cart</a>
+  </nav>
+</header>
+
+<h2 id="title"></h2>
+<p id="price"></p>
+
+<label>Color:</label>
+<select id="color">
+  <option>Red</option>
+  <option>Blue</option>
+  <option>Black</option>
+</select>
+
+<label>Size:</label>
+<select id="size">
+  <option>S</option>
+  <option>M</option>
+  <option>L</option>
+</select>
+
+<label>Quantity:</label>
+<input type="number" id="qty" value="1" min="1">
+
+<button onclick="addToCart()">Add To Cart</button>
+
+<script src="js/login.js"></script>
+<script src="js/pdp.js"></script>
+
+</body>
+</html>
