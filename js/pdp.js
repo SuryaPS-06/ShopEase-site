@@ -25,4 +25,20 @@ function addToCart() {
   alert("Product added to cart");
 }
 
+// Attach product data for analytics
+const addToCartBtn = document.querySelector('[data-cta-name="add_to_cart"]');
+
+if (addToCartBtn) {
+  addToCartBtn.setAttribute("data-product_id", "product_" + id);
+
+  addToCartBtn.addEventListener("click", function () {
+    this.setAttribute("data-product_color", document.getElementById("color").value);
+    this.setAttribute("data-product_size", document.getElementById("size").value);
+    this.setAttribute("data-product_qty", document.getElementById("qty").value);
+    this.setAttribute("data-product_price", id * 100);
+  });
+}
+
+
+
 
