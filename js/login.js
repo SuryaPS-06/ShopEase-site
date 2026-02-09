@@ -86,9 +86,13 @@ document.addEventListener("click", function (event) {
     user_id: isLoggedIn ? userId : undefined,
     product_id: target.getAttribute("data-product_id") || undefined,
     product_price: target.getAttribute("data-product_price") || undefined,
+    product_color: target.getAttribute("data-product_color") || undefined,
+    product_size: target.getAttribute("data-product_size") || undefined,
+    product_qty: target.getAttribute("data-product_qty") || undefined,
     timestamp: new Date().toISOString()
   });
 });
+
 
 
 
