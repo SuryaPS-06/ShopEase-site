@@ -68,4 +68,25 @@ function requireLogin() {
   return true;
 }
 
+document.addEventListener("click", function (event) {
+  var target = event.target.closest("[data-cta-name]");
+  if (!target) return;
+
+  var isLoggedIn = localStorage.getItem("loggedIn") === "true";
+  var userId = localStorage.getItem("userId");
+
+  window.dataLayer = window.dataLayer || [];
+  window.dataLayer.push({
+    event: "cta_click",
+    cta_name: target.getAttribute("data-cta-name"),
+    cta_location: target.getAttribute("data-cta-location") || "unknown",
+    page_name: document.title.toLowerCase().replace(/\s+/g, "_"),
+    page_url: window.location.href,
+    user_type: isLoggedIn ? "logged_in" : "guest",
+    user_id: isLoggedIn ? userId : undefined,
+    timestamp: new Date().toISOString()
+  });
+});
+
+
 
