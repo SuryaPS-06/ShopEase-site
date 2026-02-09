@@ -84,9 +84,12 @@ document.addEventListener("click", function (event) {
     page_url: window.location.href,
     user_type: isLoggedIn ? "logged_in" : "guest",
     user_id: isLoggedIn ? userId : undefined,
+    product_id: target.getAttribute("data-product_id") || undefined,
+    product_price: target.getAttribute("data-product_price") || undefined,
     timestamp: new Date().toISOString()
   });
 });
+
 
 
 
