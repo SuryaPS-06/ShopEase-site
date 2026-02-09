@@ -1,3 +1,7 @@
+function generateUserId() {
+  return "UID_" + Math.random().toString(36).substring(2, 12);
+}
+
 function openLogin() {
   document.getElementById("loginModal").style.display = "block";
 }
@@ -29,6 +33,11 @@ function login() {
   }
 
   localStorage.setItem("loggedIn", "true");
+  
+  if (!localStorage.getItem("userId")) {
+  localStorage.setItem("userId", generateUserId());
+}
+
   closeLogin();
   checkLogin();
 }
@@ -45,8 +54,10 @@ function checkLogin() {
 
 function logout() {
   localStorage.removeItem("loggedIn");
+  localStorage.removeItem("userId");
   checkLogin();
 }
+
 
 function requireLogin() {
   if (!localStorage.getItem("loggedIn")) {
@@ -56,4 +67,5 @@ function requireLogin() {
   }
   return true;
 }
+
 
