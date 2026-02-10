@@ -20,7 +20,7 @@ function renderCart() {
         ${item.qty}
         <button onclick="changeQty(${index}, 1)">+</button>
 
-        <button onclick="removeItem(${index})">Remove</button>
+        <button data-cta-name="remove_from_cart" data-cta-location="cart_item" data-product_id="${item.id}"onclick="removeItem(${index})">Remove</button>
       </div>
     `;
   });
@@ -70,4 +70,5 @@ function orderFail() {
 }
 
 renderCart();
+
 
