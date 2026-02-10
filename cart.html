@@ -2,6 +2,23 @@
 <html>
 <head>
 
+  <script>
+  window.dataLayer = window.dataLayer || [];
+
+  var isLoggedIn = localStorage.getItem("loggedIn") === "true";
+  var userId = localStorage.getItem("userId");
+
+  window.dataLayer.push({
+    page_name: "cart_page",
+    page_url: window.location.href,
+    page_category: "cart",
+    user_type: isLoggedIn ? "logged_in" : "guest",
+    user_id: isLoggedIn ? userId : undefined,
+    timestamp: new Date().toISOString()
+  });
+</script>
+
+
   <!-- Google Tag Manager -->
 <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
 new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
@@ -18,8 +35,8 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <header>
   <h2>🛍 ShopEase</h2>
   <nav>
-    <a href="index.html">Home</a>
-    <a href="plp.html">Products</a>
+    <a href="index.html" data-cta-name="nav_home" data-cta-location="navigation">Home</a>
+    <a href="plp.html" data-cta-name="nav_products" data-cta-location="navigation">Products</a>
   </nav>
 </header>
 
@@ -43,27 +60,28 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   <option value="50">50% OFF</option>
 </select>
 
-<button onclick="applyCoupon()">Apply Coupon</button>
+<button onclick="applyCoupon()" data-cta-name="apply_coupon" data-cta-location="cart">Apply Coupon</button>
 
 <h2>Total: ₹<span id="total"></span></h2>
 
-<button onclick="openPayment()">Pay Now</button>
+<button data-cta-name="pay_now" data-cta-location="cart" onclick="openPayment()">Pay Now</button>
 
 <div id="paymentModal" class="modal">
   <div class="modal-content">
     <span class="close" onclick="closePayment()">&times;</span>
     <h3>Select Payment Method</h3>
 
-    <button onclick="completePayment('UPI')">UPI</button>
-    <button onclick="completePayment('Card')">Card</button>
-    <button onclick="completePayment('NetBanking')">Net Banking</button>
-    <button onclick="completePayment('Cash')">Cash</button>
+    <button data-cta-name="payment_method" data-cta-location="payment_modal" data-payment_type="UPI"onclick="completePayment('UPI')">UPI</button>
+    <button data-cta-name="payment_method" data-cta-location="payment_modal" data-payment_type="Card" onclick="completePayment('Card')">Card</button>
+    <button data-cta-name="payment_method" data-cta-location="payment_modal" data-payment_type="NetBanking" onclick="completePayment('NetBanking')">Net Banking</button>
+    <button data-cta-name="payment_method" data-cta-location="payment_modal" data-payment_type="Cash" onclick="completePayment('Cash')">Cash</button>
   </div>
 </div>
 
-<button onclick="orderFail()">Order Failure</button>
+<button data-cta-name="order_failure" data-cta-location="cart" onclick="orderFail()">Order Failure</button>
 
 <script src="js/cart.js"></script>
 </body>
 </html>
+
 
