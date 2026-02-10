@@ -2,6 +2,23 @@
 <html>
 <head>
 
+  <script>
+  window.dataLayer = window.dataLayer || [];
+
+  var isLoggedIn = localStorage.getItem("loggedIn") === "true";
+  var userId = localStorage.getItem("userId");
+
+  window.dataLayer.push({
+    page_name: "order_failure_page",
+    page_url: window.location.href,
+    page_category: "order_failure",
+    user_type: isLoggedIn ? "logged_in" : "guest",
+    user_id: isLoggedIn ? userId : undefined,
+    order_status: "failure",
+    timestamp: new Date().toISOString()
+  });
+</script>
+
   <!-- Google Tag Manager -->
 <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
 new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
@@ -17,14 +34,18 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <header>
   <h2>🛍 ShopEase</h2>
   <nav>
-    <a href="index.html">Home</a>
-    <a href="plp.html">Products</a>
+    <a href="index.html" data-cta-name="failure_home" data-cta-location="header">Home</a>
+    <a href="plp.html" data-cta-name="failure_products" data-cta-location="header">Products</a>
   </nav>
 </header>
 
 <body class="failure">
   <h1>❌ Order Failed</h1>
-  <button onclick="location.href='cart.html'">Retry Payment</button>
+  <button data-cta-name="retry_payment" data-cta-location="failure_page" onclick="location.href='cart.html'">Retry Payment</button>
+
+  <script src="js/login.js"></script>
+
 </body>
 </html>
+
 
