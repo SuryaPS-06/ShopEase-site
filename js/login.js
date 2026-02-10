@@ -28,21 +28,53 @@ window.dataLayer.push({
   const isMobile = /^\d{10}$/.test(user);
 
   if (!user || !pass) {
+     window.dataLayer.push({
+    event: "login_failure",
+    failure_reason: "empty_fields",
+    page_name: "home_page",
+    user_type: "guest",
+    timestamp: new Date().toISOString()
+  });
     error("All fields required");
     return;
   }
 
   if (!(isEmail || isMobile)) {
-    error("Enter valid email or 10-digit mobile");
-    return;
-  }
+  window.dataLayer.push({
+    event: "login_failure",
+    failure_reason: "invalid_username",
+    page_name: "home_page",
+    user_type: "guest",
+    timestamp: new Date().toISOString()
+  });
 
-  if (pass.length !== 6) {
-    error("Password must be 6 characters");
-    return;
-  }
+  error("Enter valid email or 10-digit mobile");
+  return;
+}
+
+ if (pass.length !== 6) {
+  window.dataLayer.push({
+    event: "login_failure",
+    failure_reason: "invalid_password",
+    page_name: "home_page",
+    user_type: "guest",
+    timestamp: new Date().toISOString()
+  });
+
+  error("Password must be 6 characters");
+  return;
+}
 
   localStorage.setItem("loggedIn", "true");
+  window.dataLayer.push({
+  event: "login_success",
+  login_method: "email_or_mobile",
+  page_name: "home_page",
+  user_type: "logged_in",
+  user_id: localStorage.getItem("userId"),
+  timestamp: new Date().toISOString()
+});
+
   
   if (!localStorage.getItem("userId")) {
   localStorage.setItem("userId", generateUserId());
@@ -104,6 +136,7 @@ document.addEventListener("click", function (event) {
     timestamp: new Date().toISOString()
   });
 });
+
 
 
 
