@@ -23,3 +23,4 @@ function view(id) {
   location.href = "pdp.html";
 }
 
+
