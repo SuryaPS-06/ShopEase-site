@@ -89,9 +89,12 @@ document.addEventListener("click", function (event) {
     product_color: target.getAttribute("data-product_color") || undefined,
     product_size: target.getAttribute("data-product_size") || undefined,
     product_qty: target.getAttribute("data-product_qty") || undefined,
+    payment_type: target.getAttribute("data-payment_type") || undefined,
+    coupon_value: document.getElementById("coupon") ? document.getElementById("coupon").value : undefined,
     timestamp: new Date().toISOString()
   });
 });
+
 
 
 
