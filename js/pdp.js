@@ -6,6 +6,24 @@ document.getElementById("price").innerText = "₹" + id * 100;
 function addToCart() {
   if (!requireLogin()) return;
 
+window.dataLayer = window.dataLayer || [];
+
+var isLoggedIn = localStorage.getItem("loggedIn") === "true";
+var userId = localStorage.getItem("userId");
+
+window.dataLayer.push({
+  event: "add_to_cart",
+  product_id: id,
+  product_price: id * 100,
+  product_color: document.getElementById("color").value,
+  product_size: document.getElementById("size").value,
+  product_qty: document.getElementById("qty").value,
+  user_type: isLoggedIn ? "logged_in" : "guest",
+  user_id: isLoggedIn ? userId : undefined,
+  page_name: "pdp_page",
+  timestamp: new Date().toISOString()
+});
+
   const color = document.getElementById("color").value;
   const size = document.getElementById("size").value;
   const qty = parseInt(document.getElementById("qty").value);
@@ -38,6 +56,7 @@ if (addToCartBtn) {
     this.setAttribute("data-product_price", id * 100);
   });
 }
+
 
 
 
