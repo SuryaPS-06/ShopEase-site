@@ -10,16 +10,6 @@ function closeLogin() {
   document.getElementById("loginModal").style.display = "none";
 }
 
-function login() {
-
-  window.dataLayer = window.dataLayer || [];
-window.dataLayer.push({
-  event: "login_initiated",
-  login_method: "email_or_mobile",
-  page_name: "home_page",
-  user_type: "guest",
-  timestamp: new Date().toISOString()
-});
 
   const user = document.getElementById("user").value.trim();
   const pass = document.getElementById("password").value.trim();
@@ -30,6 +20,7 @@ window.dataLayer.push({
   if (!user || !pass) {
      window.dataLayer.push({
     event: "login_failure",
+    cta_name: "login_submit",
     failure_reason: "empty_fields",
     page_name: "home_page",
     user_type: "guest",
@@ -42,6 +33,7 @@ window.dataLayer.push({
   if (!(isEmail || isMobile)) {
   window.dataLayer.push({
     event: "login_failure",
+    cta_name: "login_submit",
     failure_reason: "invalid_username",
     page_name: "home_page",
     user_type: "guest",
@@ -55,6 +47,7 @@ window.dataLayer.push({
  if (pass.length !== 6) {
   window.dataLayer.push({
     event: "login_failure",
+    cta_name: "login_submit",
     failure_reason: "invalid_password",
     page_name: "home_page",
     user_type: "guest",
@@ -68,6 +61,7 @@ window.dataLayer.push({
   localStorage.setItem("loggedIn", "true");
   window.dataLayer.push({
   event: "login_success",
+  cta_name: "login_submit",
   login_method: "email_or_mobile",
   page_name: "home_page",
   user_type: "logged_in",
@@ -146,6 +140,7 @@ function loginInitiated() {
 
   window.dataLayer.push({
     event: "login_initiated",
+    cta_name: "login",
     page_name: "home_page",
     user_type: isLoggedIn ? "logged_in" : "guest",
     user_id: isLoggedIn ? userId : undefined,
@@ -153,6 +148,7 @@ function loginInitiated() {
     timestamp: new Date().toISOString()
   });
 }
+
 
 
 
