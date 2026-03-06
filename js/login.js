@@ -69,14 +69,27 @@ window.dataLayer.push({
   return;
 }
 
-  localStorage.setItem("loggedIn", "true");
-  window.dataLayer.push({
+  
+// mark user as logged in
+localStorage.setItem("loggedIn", "true");
+
+// generate user id if not already created
+if (!localStorage.getItem("userId")) {
+  localStorage.setItem("userId", generateUserId());
+}
+
+var userId = localStorage.getItem("userId");
+
+window.dataLayer = window.dataLayer || [];
+
+window.dataLayer.push({
   event: "login_success",
   cta_name: "login_submit",
+  cta_location: "login_modal",
   login_method: "email_or_mobile",
   page_name: "home_page",
   user_type: "logged_in",
-  user_id: localStorage.getItem("userId"),
+  user_id: userId,
   timestamp: new Date().toISOString()
 });
 
