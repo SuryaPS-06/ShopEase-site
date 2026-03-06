@@ -1,3 +1,18 @@
+function getCartItemsArray() {
+  let cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+  return cart.map(item => ({
+    product_id: item.id,
+    product_name: item.name,
+    product_price: item.price,
+    product_color: item.color,
+    product_size: item.size,
+    product_qty: item.qty
+  }));
+
+}
+
+
 let cart = JSON.parse(localStorage.getItem("cart")) || [];
 let discount = 0;
 
@@ -67,6 +82,21 @@ function updateCart() {
 }
 
 function openPayment() {
+window.dataLayer = window.dataLayer || [];
+
+var isLoggedIn = localStorage.getItem("loggedIn") === "true";
+var userId = localStorage.getItem("userId");
+
+window.dataLayer.push({
+  event: "pay_now",
+  cta_name: "Pay Now",
+  page_name: "cart_page",
+  user_type: isLoggedIn ? "logged_in" : "guest",
+  user_id: isLoggedIn ? userId : undefined,
+  cart_items: getCartItemsArray(),
+  timestamp: new Date().toISOString()
+});
+  
   document.getElementById("paymentModal").style.display = "block";
 }
 
@@ -82,10 +112,26 @@ function completePayment(method) {
 
 
 function orderFail() {
+window.dataLayer = window.dataLayer || [];
+
+var isLoggedIn = localStorage.getItem("loggedIn") === "true";
+var userId = localStorage.getItem("userId");
+
+window.dataLayer.push({
+  event: "order_failure",
+  cta_name: "Order Failure",
+  page_name: "cart_page",
+  user_type: isLoggedIn ? "logged_in" : "guest",
+  user_id: isLoggedIn ? userId : undefined,
+  cart_items: getCartItemsArray(),
+  timestamp: new Date().toISOString()
+});
+  
   location.href = "failure.html";
 }
 
 renderCart();
+
 
 
 
