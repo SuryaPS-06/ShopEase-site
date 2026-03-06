@@ -31,6 +31,7 @@ function getCartItemsArray() {
     user_type: isLoggedIn ? "logged_in" : "guest",
     user_id: isLoggedIn ? userId : undefined,
     order_status: "success",
+    products: getCartItemsArray(),
     timestamp: new Date().toISOString()
   });
 </script>
@@ -62,6 +63,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 
 </body>
 </html>
+
 
 
 
