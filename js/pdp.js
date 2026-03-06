@@ -13,6 +13,8 @@ var userId = localStorage.getItem("userId");
 
 window.dataLayer.push({
   event: "add_to_cart",
+  cta_name:"add_to_cart",
+  cta_location:"pdp",
   product_id: id,
   product_price: id * 100,
   product_color: document.getElementById("color").value,
@@ -56,6 +58,7 @@ if (addToCartBtn) {
     this.setAttribute("data-product_price", id * 100);
   });
 }
+
 
 
 
