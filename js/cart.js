@@ -49,6 +49,7 @@ var couponValue = document.getElementById("coupon").value;
 
 window.dataLayer.push({
   event: "apply_coupon",
+  cta_location="cart",
   cta_name: "Apply Coupon",
   coupon_value: couponValue,
   page_name: "cart_page",
@@ -85,6 +86,7 @@ function orderFail() {
 }
 
 renderCart();
+
 
 
 
