@@ -41,7 +41,22 @@ function removeItem(index) {
 }
 
 function applyCoupon() {
-  discount = parseInt(document.getElementById("coupon").value);
+window.dataLayer = window.dataLayer || [];
+
+var isLoggedIn = localStorage.getItem("loggedIn") === "true";
+var userId = localStorage.getItem("userId");
+var couponValue = document.getElementById("coupon").value;
+
+window.dataLayer.push({
+  event: "apply_coupon",
+  cta_name: "Apply Coupon",
+  coupon_value: couponValue,
+  page_name: "cart_page",
+  user_type: isLoggedIn ? "logged_in" : "guest",
+  user_id: isLoggedIn ? userId : undefined,
+  timestamp: new Date().toISOString()
+});
+
   renderCart();
 }
 
@@ -70,5 +85,6 @@ function orderFail() {
 }
 
 renderCart();
+
 
 
