@@ -3,6 +3,21 @@
 <head>
 
   <script>
+    
+  function getCartItemsArray() {
+
+  let cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+  return cart.map(item => ({
+    product_id: item.id,
+    product_name: item.name,
+    product_price: item.price,
+    product_color: item.color,
+    product_size: item.size,
+    product_qty: item.qty
+  }));
+
+}
   window.dataLayer = window.dataLayer || [];
 
   var isLoggedIn = localStorage.getItem("loggedIn") === "true";
@@ -14,6 +29,7 @@
     page_category: "cart",
     user_type: isLoggedIn ? "logged_in" : "guest",
     user_id: isLoggedIn ? userId : undefined,
+    products: getCartItemsArray(),
     timestamp: new Date().toISOString()
   });
 </script>
@@ -84,6 +100,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <script src="js/cart.js"></script>
 </body>
 </html>
+
 
 
 
