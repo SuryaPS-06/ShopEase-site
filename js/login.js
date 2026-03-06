@@ -138,6 +138,24 @@ document.addEventListener("click", function (event) {
 });
 
 
+function loginInitiated() {
+  window.dataLayer = window.dataLayer || [];
+
+  var isLoggedIn = localStorage.getItem("loggedIn") === "true";
+  var userId = localStorage.getItem("userId");
+
+  window.dataLayer.push({
+    event: "login_initiated",
+    page_name: "home_page",
+    user_type: isLoggedIn ? "logged_in" : "guest",
+    user_id: isLoggedIn ? userId : undefined,
+    login_method: "email_or_mobile",
+    timestamp: new Date().toISOString()
+  });
+}
+
+
+
 
 
 
