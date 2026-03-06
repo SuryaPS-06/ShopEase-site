@@ -10,6 +10,17 @@ function closeLogin() {
   document.getElementById("loginModal").style.display = "none";
 }
 
+function login() {
+ 
+  window.dataLayer = window.dataLayer || [];
+window.dataLayer.push({
+  event: "login_initiated",
+  login_method: "email_or_mobile",
+  page_name: "home_page",
+  user_type: "guest",
+  timestamp: new Date().toISOString()
+});
+
 
   const user = document.getElementById("user").value.trim();
   const pass = document.getElementById("password").value.trim();
@@ -148,6 +159,7 @@ function loginInitiated() {
     timestamp: new Date().toISOString()
   });
 }
+
 
 
 
