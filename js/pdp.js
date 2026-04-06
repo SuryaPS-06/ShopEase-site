@@ -3,6 +3,50 @@ const id = localStorage.getItem("pid");
 document.getElementById("title").innerText = "Product " + id;
 document.getElementById("price").innerText = "₹" + id * 100;
 
+// 🔥 PDP PAGE LOAD DATALAYER (view_item)
+
+window.dataLayer = window.dataLayer || [];
+
+var isLoggedIn = localStorage.getItem("loggedIn") === "true";
+var userId = localStorage.getItem("userId");
+
+let productName = "Product " + id;
+let price = id * 100;
+
+window.dataLayer.push({
+  event: "view_item",
+  currency: "INR",
+  value: price,
+  user_type: isLoggedIn ? "logged_in" : "guest",
+  user_id: isLoggedIn ? userId : undefined,
+  items: [
+    {
+      item_id: "SKU_" + id,
+      item_name: productName,
+      affiliation: "ShopEase",
+      coupon: "",
+      discount: 0,
+      index: 0,
+      item_brand: "ShopEase",
+      item_category: "General",
+      item_category2: "Default",
+      item_category3: "Default",
+      item_category4: "",
+      item_category5: "",
+      item_list_id: "plp_products",
+      item_list_name: "Product Listing",
+      item_variant: "default",
+      location_id: "online_store",
+      price: price,
+      google_business_vertical: "retail",
+      quantity: 1 ,
+      pdp_load: "Yes"
+    }
+  ],
+  timestamp: new Date().toISOString()
+});
+
+
 function addToCart() {
   if (!requireLogin()) return;
 
