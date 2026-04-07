@@ -40,7 +40,8 @@ window.dataLayer.push({
       price: price,
       google_business_vertical: "retail",
       quantity: 1 ,
-      pdp_load: "Yes"
+      pdp_load: "Yes" ,
+      product_view: "Yes"
     }
   ],
   timestamp: new Date().toISOString()
@@ -79,7 +80,8 @@ window.dataLayer.push({
       location_id: "online_store",
       price: id * 100,
       google_business_vertical: "retail",
-      quantity: parseInt(document.getElementById("qty").value)
+      quantity: parseInt(document.getElementById("qty").value),
+      item_added: "Yes"
     }
   ],
   timestamp: new Date().toISOString()
