@@ -1,95 +1,104 @@
 const id = localStorage.getItem("pid");
 
+// UI (UNCHANGED)
 document.getElementById("title").innerText = "Product " + id;
 document.getElementById("price").innerText = "₹" + id * 100;
 
-// 🔥 PDP PAGE LOAD DATALAYER (view_item)
+// =========================
+// ✅ PDP LOAD → view_item
+// =========================
 
 window.dataLayer = window.dataLayer || [];
-
-var isLoggedIn = localStorage.getItem("loggedIn") === "true";
-var userId = localStorage.getItem("userId");
 
 let productName = "Product " + id;
 let price = id * 100;
 
+dataLayer.push({ ecommerce: null });
+
 window.dataLayer.push({
   event: "view_item",
-  currency: "INR",
-  value: price,
-  user_type: isLoggedIn ? "logged_in" : "guest",
-  user_id: isLoggedIn ? userId : undefined,
-  items: [
-    {
-      item_id: "SKU_" + id,
-      item_name: productName,
-      affiliation: "ShopEase",
-      coupon: "",
-      discount: 0,
-      index: 0,
-      item_brand: "ShopEase",
-      item_category: "General",
-      item_category2: "Default",
-      item_category3: "Default",
-      item_category4: "",
-      item_category5: "",
-      item_list_id: "plp_products",
-      item_list_name: "Product Listing",
-      item_variant: "default",
-      location_id: "online_store",
-      price: price,
-      google_business_vertical: "retail",
-      quantity: 1 ,
-      pdp_load: "Yes" ,
-      product_view: "Yes"
-    }
-  ],
-  timestamp: new Date().toISOString()
+  ecommerce: {
+    currency: "INR",
+    value: price,
+    items: [
+      {
+        item_id: "SKU_" + id,
+        item_name: productName,
+        affiliation: "ShopEase",
+        coupon: "",
+        discount: 0,
+        index: 0,
+        item_brand: "ShopEase",
+        item_category: "Apparel",
+        item_category2: "General",
+        item_category3: "Clothing",
+        item_category4: "Standard",
+        item_category5: "Default",
+        item_list_id: "plp_products",
+        item_list_name: "Product Listing",
+        item_variant: "default",
+        location_id: "online_store",
+        price: price,
+        google_business_vertical: "retail",
+        quantity: 1,
+        pdp_load: "Yes",
+        product_view: "Yes"
+      }
+    ]
+  }
 });
 
+// =========================
+// ✅ ADD TO CART
+// =========================
 
 function addToCart() {
   if (!requireLogin()) return;
 
-window.dataLayer = window.dataLayer || [];
+  window.dataLayer = window.dataLayer || [];
 
-var isLoggedIn = localStorage.getItem("loggedIn") === "true";
-var userId = localStorage.getItem("userId");
+  var isLoggedIn = localStorage.getItem("loggedIn") === "true";
+  var userId = localStorage.getItem("userId");
 
-window.dataLayer.push({
-  event: "add_to_cart",
-  currency: "INR",
-  value: id * 100 * document.getElementById("qty").value,
-  items: [
-    {
-      item_id: "SKU_" + id,
-      item_name: "Product " + id,
-      affiliation: "ShopEase Store",
-      coupon: "",
-      discount: 0,
-      index: 0,
-      item_brand: "ShopEase",
-      item_category: "Apparel",
-      item_category2: "General",
-      item_category3: "Clothing",
-      item_category4: "Standard",
-      item_category5: "Default",
-      item_list_id: "plp_products",
-      item_list_name: "Product Listing",
-      item_variant: document.getElementById("color").value,
-      location_id: "online_store",
-      price: id * 100,
-      google_business_vertical: "retail",
-      quantity: parseInt(document.getElementById("qty").value),
-      item_added: "Yes"
+  const qty = parseInt(document.getElementById("qty").value);
+
+  dataLayer.push({ ecommerce: null });
+
+  window.dataLayer.push({
+    event: "add_to_cart",
+    ecommerce: {
+      currency: "INR",
+      value: id * 100 * qty,
+      items: [
+        {
+          item_id: "SKU_" + id,
+          item_name: "Product " + id,
+          affiliation: "ShopEase",
+          coupon: "",
+          discount: 0,
+          index: 0,
+          item_brand: "ShopEase",
+          item_category: "Apparel",
+          item_category2: "General",
+          item_category3: "Clothing",
+          item_category4: "Standard",
+          item_category5: "Default",
+          item_list_id: "plp_products",
+          item_list_name: "Product Listing",
+          item_variant: document.getElementById("color").value,
+          location_id: "online_store",
+          price: id * 100,
+          google_business_vertical: "retail",
+          quantity: qty,
+          item_added: "Yes"
+        }
+      ]
     }
-  ],
-  timestamp: new Date().toISOString()
-});
+  });
 
+  // existing logic (UNCHANGED)
   const color = document.getElementById("color").value;
   const size = document.getElementById("size").value;
-  const qty = parseInt(document.getElementById("qty").value);
 
   let cart = JSON.parse(localStorage.getItem("cart")) || [];
 
@@ -106,7 +115,10 @@ window.dataLayer.push({
   alert("Product added to cart");
 }
 
-// Attach product data for analytics
+// =========================
+// (UNCHANGED ANALYTICS ATTRIBUTES)
+// =========================
+
 const addToCartBtn = document.querySelector('[data-cta-name="add_to_cart"]');
 
 if (addToCartBtn) {
@@ -119,7 +131,6 @@ if (addToCartBtn) {
     this.setAttribute("data-product_price", id * 100);
   });
 }
-
 
 
 
