@@ -57,14 +57,17 @@ document.addEventListener("DOMContentLoaded", function () {
   var isLoggedIn = localStorage.getItem("loggedIn") === "true";
   var userId = localStorage.getItem("userId");
 
-  window.dataLayer.push({
-    event: "view_item_list",
+dataLayer.push({ ecommerce: null });
+
+window.dataLayer.push({
+  event: "view_item_list",
+  ecommerce: {
     item_list_id: "plp_products",
     item_list_name: "Product Listing",
-    items: itemsArray,
-    timestamp: new Date().toISOString()
-  });
-
+    items: itemsArray
+  }
+});
+  
 });
 
 // navigation function (must be OUTSIDE DOMContentLoaded)
@@ -73,39 +76,40 @@ function viewProduct(id) {
   let productName = "Product " + id;
   let price = id * 100;
 
-  window.dataLayer = window.dataLayer || [];
+  dataLayer.push({ ecommerce: null });
 
   window.dataLayer.push({
     event: "select_item",
-    item_list_id: "plp_products",
-    item_list_name: "Product Listing",
-    items: [
-      {
-        item_id: "SKU_" + id,
-        item_name: productName,
-        affiliation: "ShopEase Store",
-        coupon: "",
-        discount: 0,
-        index: id - 1,
-        item_brand: "ShopEase",
-        item_category: "Apparel",
-        item_category2: "General",
-        item_category3: "Clothing",
-        item_category4: "Standard",
-        item_category5: "Default",
-        item_list_id: "plp_products",
-        item_list_name: "Product Listing",
-        item_variant: "default",
-        location_id: "online_store",
-        price: price,
-        google_business_vertical: "retail",
-        quantity: 1 ,
-        product_selected: "Yes"
-      }
-    ]
+    ecommerce: {
+      item_list_id: "plp_products",
+      item_list_name: "Product Listing",
+      items: [
+        {
+          item_id: "SKU_" + id,
+          item_name: productName,
+          affiliation: "ShopEase",
+          coupon: "",
+          discount: 0,
+          index: id - 1,
+          item_brand: "ShopEase",
+          item_category: "Apparel",
+          item_category2: "General",
+          item_category3: "Clothing",
+          item_category4: "Standard",
+          item_category5: "Default",
+          item_list_id: "plp_products",
+          item_list_name: "Product Listing",
+          item_variant: "default",
+          location_id: "online_store",
+          price: price,
+          google_business_vertical: "retail",
+          quantity: 1 ,
+          product_selected: "Yes"
+        }
+      ]
+    }
   });
 
-  // navigation
   localStorage.setItem("pid", id);
   window.location.href = "pdp.html";
 }
