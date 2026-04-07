@@ -40,7 +40,8 @@ document.addEventListener("DOMContentLoaded", function () {
   location_id: "online_store",
   price: price,
   google_business_vertical: "retail",
-  quantity: 1
+  quantity: 1 ,
+  plp_load: "Yes"
 });
   }
 
@@ -60,8 +61,6 @@ document.addEventListener("DOMContentLoaded", function () {
     event: "view_item_list",
     item_list_id: "plp_products",
     item_list_name: "Product Listing",
-    user_type: isLoggedIn ? "logged_in" : "guest",
-    user_id: isLoggedIn ? userId : undefined,
     items: itemsArray,
     timestamp: new Date().toISOString()
   });
@@ -100,7 +99,8 @@ function viewProduct(id) {
         location_id: "online_store",
         price: price,
         google_business_vertical: "retail",
-        quantity: 1
+        quantity: 1 ,
+        product_selected: "Yes"
       }
     ]
   });
