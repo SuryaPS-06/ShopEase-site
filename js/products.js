@@ -1,72 +1,74 @@
-let productsHTML = "";
-let itemsArray = [];
+document.addEventListener("DOMContentLoaded", function () {
 
-for (let i = 1; i <= 10; i++) {
+  let productsHTML = "";
+  let itemsArray = [];
 
-  let productName = "Product " + i;
-  let price = i * 100;
+  for (let i = 1; i <= 10; i++) {
 
-  // UI rendering
-  productsHTML += `
-    <div class="product">
-      <h3>${productName}</h3>
-      <p>₹${price}</p>
+    let productName = "Product " + i;
+    let price = i * 100;
 
-      <button
-        data-cta-name="product_view"
-        data-cta-location="plp_product_card"
-        data-product_id="${i}"
-        data-product_price="${price}"
-        onclick="viewProduct(${i})">
-        View
-      </button>
-    </div>
-  `;
+    // UI rendering
+    productsHTML += `
+      <div class="product">
+        <h3>${productName}</h3>
+        <p>₹${price}</p>
 
-  // GA4 items array
-  itemsArray.push({
-    item_id: "SKU_" + i,
-    item_name: productName,
-    affiliation: "ShopEase",
-    coupon: "",
-    discount: 0,
-    index: i - 1,
-    item_brand: "ShopEase",
-    item_category: "General",
-    item_category2: "Default",
-    item_category3: "Default",
-    item_category4: "",
-    item_category5: "",
-    item_list_id: "plp_products",
-    item_list_name: "Product Listing",
-    item_variant: "default",
-    location_id: "online_store",
-    price: price,
-    google_business_vertical: "retail",
-    quantity: 1 ,
-    plp_load: "Yes"
-  });
-}
+        <button onclick="viewProduct(${i})">
+          View
+        </button>
+      </div>
+    `;
 
-document.getElementById("products").innerHTML = productsHTML;
-
-// 🔥 DATA LAYER PUSH (GA4 FORMAT)
-window.dataLayer = window.dataLayer || [];
-
-var isLoggedIn = localStorage.getItem("loggedIn") === "true";
-var userId = localStorage.getItem("userId");
-
-window.dataLayer.push({
-  event: "view_item_list",
+    // GA4 items array
+   itemsArray.push({
+  item_id: "SKU_" + i,
+  item_name: productName,
+  affiliation: "ShopEase Store",
+  coupon: "",
+  discount: 0,
+  index: i - 1,
+  item_brand: "ShopEase",
+  item_category: "Apparel",
+  item_category2: "General",
+  item_category3: "Clothing",
+  item_category4: "Standard",
+  item_category5: "Default",
   item_list_id: "plp_products",
   item_list_name: "Product Listing",
-  user_type: isLoggedIn ? "logged_in" : "guest",
-  user_id: isLoggedIn ? userId : undefined,
-  items: itemsArray,
-  timestamp: new Date().toISOString()
+  item_variant: "default",
+  location_id: "online_store",
+  price: price,
+  google_business_vertical: "retail",
+  quantity: 1
+});
+  }
+
+  // render UI safely
+  const container = document.getElementById("products");
+  if (container) {
+    container.innerHTML = productsHTML;
+  }
+
+  // 🔥 dataLayer push (safe)
+  window.dataLayer = window.dataLayer || [];
+
+  var isLoggedIn = localStorage.getItem("loggedIn") === "true";
+  var userId = localStorage.getItem("userId");
+
+  window.dataLayer.push({
+    event: "view_item_list",
+    item_list_id: "plp_products",
+    item_list_name: "Product Listing",
+    user_type: isLoggedIn ? "logged_in" : "guest",
+    user_id: isLoggedIn ? userId : undefined,
+    items: itemsArray,
+    timestamp: new Date().toISOString()
+  });
+
 });
 
-// navigation
+// navigation function (must be OUTSIDE DOMContentLoaded)
 function viewProduct(id) {
 
   let productName = "Product " + id;
@@ -74,11 +76,36 @@ function viewProduct(id) {
 
   window.dataLayer = window.dataLayer || [];
 
-  var isLoggedIn = localStorage.getItem("loggedIn") === "true";
-  var userId = localStorage.getItem("userId");
-
   window.dataLayer.push({
     event: "select_item",
     item_list_id: "plp_products",
-   
+    item_list_name: "Product Listing",
+    items: [
+      {
+        item_id: "SKU_" + id,
+        item_name: productName,
+        affiliation: "ShopEase Store",
+        coupon: "",
+        discount: 0,
+        index: id - 1,
+        item_brand: "ShopEase",
+        item_category: "Apparel",
+        item_category2: "General",
+        item_category3: "Clothing",
+        item_category4: "Standard",
+        item_category5: "Default",
+        item_list_id: "plp_products",
+        item_list_name: "Product Listing",
+        item_variant: "default",
+        location_id: "online_store",
+        price: price,
+        google_business_vertical: "retail",
+        quantity: 1
+      }
+    ]
+  });
 
+  // navigation
+  localStorage.setItem("pid", id);
+  window.location.href = "pdp.html";
+}
