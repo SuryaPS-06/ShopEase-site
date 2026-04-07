@@ -57,16 +57,31 @@ var userId = localStorage.getItem("userId");
 
 window.dataLayer.push({
   event: "add_to_cart",
-  cta_name:"add_to_cart",
-  cta_location:"pdp",
-  product_id: id,
-  product_price: id * 100,
-  product_color: document.getElementById("color").value,
-  product_size: document.getElementById("size").value,
-  product_qty: document.getElementById("qty").value,
-  user_type: isLoggedIn ? "logged_in" : "guest",
-  user_id: isLoggedIn ? userId : undefined,
-  page_name: "pdp_page",
+  currency: "INR",
+  value: id * 100 * document.getElementById("qty").value,
+  items: [
+    {
+      item_id: "SKU_" + id,
+      item_name: "Product " + id,
+      affiliation: "ShopEase Store",
+      coupon: "",
+      discount: 0,
+      index: 0,
+      item_brand: "ShopEase",
+      item_category: "Apparel",
+      item_category2: "General",
+      item_category3: "Clothing",
+      item_category4: "Standard",
+      item_category5: "Default",
+      item_list_id: "plp_products",
+      item_list_name: "Product Listing",
+      item_variant: document.getElementById("color").value,
+      location_id: "online_store",
+      price: id * 100,
+      google_business_vertical: "retail",
+      quantity: parseInt(document.getElementById("qty").value)
+    }
+  ],
   timestamp: new Date().toISOString()
 });
 
