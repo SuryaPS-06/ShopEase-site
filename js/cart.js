@@ -18,7 +18,13 @@ let discount = 0;
 
 function renderCart() {
   const container = document.getElementById("cartItems");
-  container.innerHTML = "";
+container.innerHTML = "";
+
+if (cart.length === 0) {
+  container.innerHTML = "<h3>Your cart is empty</h3>";
+  document.getElementById("total").innerText = "0";
+  return;
+}
 
   let total = 0;
 
@@ -56,22 +62,26 @@ function removeItem(index) {
 }
 
 function applyCoupon() {
-window.dataLayer = window.dataLayer || [];
 
-var isLoggedIn = localStorage.getItem("loggedIn") === "true";
-var userId = localStorage.getItem("userId");
-var couponValue = document.getElementById("coupon").value;
+  window.dataLayer = window.dataLayer || [];
 
-window.dataLayer.push({
-  event: "apply_coupon",
-  cta_location="cart",
-  cta_name: "Apply Coupon",
-  coupon_value: couponValue,
-  page_name: "cart_page",
-  user_type: isLoggedIn ? "logged_in" : "guest",
-  user_id: isLoggedIn ? userId : undefined,
-  timestamp: new Date().toISOString()
-});
+  var isLoggedIn = localStorage.getItem("loggedIn") === "true";
+  var userId = localStorage.getItem("userId");
+  var couponValue = document.getElementById("coupon").value;
+
+  // ✅ FIX: apply discount
+  discount = parseInt(couponValue);
+
+  window.dataLayer.push({
+    event: "apply_coupon",
+    cta_location: "cart",   // ✅ FIXED
+    cta_name: "Apply Coupon",
+    coupon_value: couponValue,
+    page_name: "cart_page",
+    user_type: isLoggedIn ? "logged_in" : "guest",
+    user_id: isLoggedIn ? userId : undefined,
+    timestamp: new Date().toISOString()
+  });
 
   renderCart();
 }
