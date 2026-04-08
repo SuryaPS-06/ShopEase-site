@@ -23,15 +23,55 @@
   var isLoggedIn = localStorage.getItem("loggedIn") === "true";
   var userId = localStorage.getItem("userId");
 
-  window.dataLayer.push({
-    page_name: "cart_page",
-    page_url: window.location.href,
-    page_category: "cart",
-    user_type: isLoggedIn ? "logged_in" : "guest",
-    user_id: isLoggedIn ? userId : undefined,
-    products: getCartItemsArray(),
-    timestamp: new Date().toISOString()
-  });
+<script>
+
+function getCartItemsArrayGA4() {
+
+  let cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+  return cart.map((item, index) => ({
+    item_id: "SKU_" + item.id,
+    item_name: item.name,
+    affiliation: "ShopEase",
+    coupon: "",
+    discount: 0,
+    index: index,
+    item_brand: "ShopEase",
+    item_category: "Apparel",
+    item_category2: "General",
+    item_category3: "Clothing",
+    item_category4: "Standard",
+    item_category5: "Default",
+    item_list_id: "cart_products",
+    item_list_name: "Cart Page",
+    item_variant: item.color,
+    location_id: "online_store",
+    price: item.price,
+    google_business_vertical: "retail",
+    quantity: item.qty
+  }));
+
+}
+
+window.dataLayer = window.dataLayer || [];
+
+let cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+let totalValue = cart.reduce((sum, item) => sum + (item.price * item.qty), 0);
+
+// 🔥 CLEAR PREVIOUS ECOMMERCE OBJECT
+dataLayer.push({ ecommerce: null });
+
+// 🔥 VIEW CART EVENT
+window.dataLayer.push({
+  event: "view_cart",
+  ecommerce: {
+    currency: "INR",
+    value: totalValue,
+    items: getCartItemsArrayGA4()
+  }
+});
+
 </script>
 
 
