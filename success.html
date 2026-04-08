@@ -61,6 +61,76 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   <a href="index.html" data-cta-name="success_go_home" data-cta-location="success_page">Go Home</a>
   <script src="js/login.js"></script>
 
+
+<script>
+
+function getPurchaseItems() {
+
+  let cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+  return cart.map((item, index) => ({
+    item_id: "SKU_" + item.id,
+    item_name: item.name,
+    affiliation: "ShopEase",
+    coupon: "",
+    discount: 0,
+    index: index,
+    item_brand: "ShopEase",
+    item_category: "Apparel",
+    item_category2: "General",
+    item_category3: "Clothing",
+    item_category4: "Standard",
+    item_category5: "Default",
+    item_list_id: "cart_products",
+    item_list_name: "Cart Page",
+    item_variant: item.color,
+    location_id: "online_store",
+    price: item.price,
+    google_business_vertical: "retail",
+    quantity: item.qty
+  }));
+
+}
+
+window.dataLayer = window.dataLayer || [];
+
+let cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+// total value
+let totalValue = cart.reduce((sum, item) => sum + (item.price * item.qty), 0);
+
+// dummy values (can enhance later)
+let tax = totalValue * 0.05;
+let shipping = 50;
+let couponValue = "";
+
+// generate transaction id
+let transactionId = "T_" + Date.now();
+
+// 🔥 CLEAR OLD ECOMMERCE
+dataLayer.push({ ecommerce: null });
+
+// 🔥 PURCHASE EVENT
+window.dataLayer.push({
+  event: "purchase",
+  ecommerce: {
+    transaction_id: transactionId,
+    value: totalValue,
+    tax: tax,
+    shipping: shipping,
+    currency: "INR",
+    coupon: couponValue,
+    customer_type: localStorage.getItem("loggedIn") === "true" ? "returning" : "guest",
+    items: getPurchaseItems()
+  }
+});
+
+// 🔥 CLEAR CART AFTER PURCHASE
+localStorage.removeItem("cart");
+
+</script>
+  
+  
 </body>
 </html>
 
